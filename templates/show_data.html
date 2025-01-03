@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Record</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_sd.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Student's Record</h1>
+        </header>
+        <main>
+            <form action="{{ url_for('filter_data') }}" method="post">
+                <label for="seat_no">Enter Seat Number:</label>
+                <input type="text" id="seat_no" name="seat_no" required>
+                <button type="submit">Filter</button>
+            </form>
+            {{ data_html|safe }}
+        </main>
+    </div>
+</body>
+</html>

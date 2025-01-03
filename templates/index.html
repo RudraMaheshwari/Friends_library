@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends Library</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>FRIENDS LIBRARY</h1>
+        <div class="buttons">
+            <button class="btn" onclick="window.location.href='{{ url_for('add_student') }}'">ADD STUDENT</button>
+            <button class="btn" onclick="window.location.href='{{ url_for('update_fee') }}'">UPDATE DETAILS</button>
+            <button class="btn" onclick="window.location.href='{{ url_for('generate_fee_message') }}'">GENERATE FEE MESSAGE</button>
+            <button class="btn" onclick="window.location.href='{{ url_for('show_data') }}'">SHOW ALL DATA</button>
+            <button class="btn" onclick="window.location.href='{{ url_for('delete_data') }}'">DELETE USER</button>
+        </div>
+    </div>
+</body>
+</html>

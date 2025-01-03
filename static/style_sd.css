@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto; /* Enable vertical scrolling */
+    position: relative;
+}
+
+body::before {
+    content: "";
+    background-image: url('/static/logo.png'); /* Updated image path */
+    background-size: contain; /* Adjust as needed */
+    background-position: center;
+    opacity: 0.1; /* Adjust the opacity as needed */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensure the image is behind the content */
+}
+
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6); /* White background with 90% opacity */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px; /* Adjusted width for better table display */
+    max-height: 90vh; /* Ensure the container does not exceed viewport height */
+    overflow-y: auto; /* Enable vertical scrolling within the container */
+    z-index: 1; /* Ensure the container is above the background image */
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+main {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
