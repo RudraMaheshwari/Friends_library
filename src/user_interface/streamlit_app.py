@@ -1,5 +1,5 @@
 import streamlit as st
-from src.user_interface.pages import add_student, update_fee, generate_fee_message, show_data, delete_data
+from src.user_interface.pages import add_student, update_fee, generate_fee_message, generate_reminder_message, update_student_details, show_data, delete_data
 
 def main():
     st.set_page_config(
@@ -14,17 +14,21 @@ def main():
     st.sidebar.title("Navigation")
     page = st.sidebar.radio(
         "Select Operation",
-        ["Home", "Add Student", "Update Fee", "Generate Fee Message", "Show Data", "Delete Student"]
+        ["Home", "Add Student", "Update Student Details", "Update Fee", "Generate Fee Message", "Generate Reminder Message", "Show Data", "Delete Student"]
     )
     
     if page == "Home":
         show_home()
     elif page == "Add Student":
         add_student.show()
+    elif page == "Update Student Details":
+        update_student_details.show()
     elif page == "Update Fee":
         update_fee.show()
     elif page == "Generate Fee Message":
         generate_fee_message.show()
+    elif page == "Generate Reminder Message":
+        generate_reminder_message.show()
     elif page == "Show Data":
         show_data.show()
     elif page == "Delete Student":
@@ -37,9 +41,11 @@ def show_home():
     st.markdown("""
     ### Available Operations:
     - **Add Student**: Register new students to the library
+    - **Update Student Details**: Update all information for existing students (name, mobile, dates, fees, etc.)
     - **Update Fee**: Update payment and fee details for existing students
     - **Generate Fee Message**: Generate fee notification messages for students
-    - **Show Data**: View all student records (sorted by end date)
+    - **Generate Reminder Message**: Generate reminder messages based on days remaining until end date
+    - **Show Data**: View all student records (sorted by end date or seat number)
     - **Delete Student**: Remove student records from the system
     
     Please select an operation from the sidebar to get started.

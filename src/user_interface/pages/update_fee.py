@@ -62,15 +62,15 @@ def show():
                 # Parse dates
                 payment_receive_date = st.date_input(
                     "Payment Receive Date*",
-                    value=datetime.strptime(details['payment_receive_date'], '%Y-%m-%d') if details['payment_receive_date'] != 'N/A' else None
+                    value=datetime.strptime(details['payment_receive_date'], '%d/%m/%Y') if details['payment_receive_date'] != 'N/A' else None
                 )
                 start_date = st.date_input(
                     "Start Date*",
-                    value=datetime.strptime(details['start_date'], '%Y-%m-%d') if details['start_date'] != 'N/A' else None
+                    value=datetime.strptime(details['start_date'], '%d/%m/%Y') if details['start_date'] != 'N/A' else None
                 )
                 end_date = st.date_input(
                     "End Date*",
-                    value=datetime.strptime(details['end_date'], '%Y-%m-%d') if details['end_date'] != 'N/A' else None
+                    value=datetime.strptime(details['end_date'], '%d/%m/%Y') if details['end_date'] != 'N/A' else None
                 )
             
             submit_button = st.form_submit_button("Update Fee Details", width='stretch')
