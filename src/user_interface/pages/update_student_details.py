@@ -59,15 +59,15 @@ def show():
                 # Parse dates
                 start_date = st.date_input(
                     "Start Date*",
-                    value=datetime.strptime(details['start_date'], '%d/%m/%Y') if details['start_date'] != 'N/A' else None
+                    value=datetime.strptime(details['start_date'], '%d-%m-%Y') if details['start_date'] != 'N/A' else None
                 )
                 end_date = st.date_input(
                     "End Date*",
-                    value=datetime.strptime(details['end_date'], '%d/%m/%Y') if details['end_date'] != 'N/A' else None
+                    value=datetime.strptime(details['end_date'], '%d-%m-%Y') if details['end_date'] != 'N/A' else None
                 )
                 payment_receive_date = st.date_input(
                     "Payment Receive Date*",
-                    value=datetime.strptime(details['payment_receive_date'], '%d/%m/%Y') if details['payment_receive_date'] != 'N/A' else None
+                    value=datetime.strptime(details['payment_receive_date'], '%d-%m-%Y') if details['payment_receive_date'] != 'N/A' else None
                 )
                 pay_mode = st.selectbox(
                     "Payment Mode*", 

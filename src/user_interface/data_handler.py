@@ -8,7 +8,13 @@ EXCEL_FILE_PATH = os.path.join(BASE_DIR, 'LIBRARY LIST.xlsx')
 
 def read_excel():
     """Read the Excel file and return DataFrame"""
-    return pd.read_excel(EXCEL_FILE_PATH)
+    df = pd.read_excel(EXCEL_FILE_PATH)
+    # Parse date columns in DD-MM-YYYY format
+    date_columns = ['START DATE', 'END DATE', 'PAYMENT RE. DATE']
+    for col in date_columns:
+        if col in df.columns:
+            df[col] = pd.to_datetime(df[col], format='%d-%m-%Y', errors='coerce')
+    return df
 
 def save_excel(df):
     """Save DataFrame to Excel file"""
@@ -17,9 +23,9 @@ def save_excel(df):
     shutil.move(temp_file_path, EXCEL_FILE_PATH)
 
 def format_date(date_value):
-    """Format date to DD/MM/YYYY string"""
+    """Format date to DD-MM-YYYY string"""
     if pd.notnull(date_value):
-        return pd.Timestamp(date_value).strftime('%d/%m/%Y')
+        return pd.Timestamp(date_value).strftime('%d-%m-%Y')
     return "N/A"
 
 def add_student_to_excel(student_data):
@@ -84,12 +90,6 @@ def get_student_details(seat_no):
         
         student = student.iloc[0]
         
-        # Convert date columns to datetime
-        date_columns = ['PAYMENT RE. DATE', 'START DATE', 'END DATE']
-        for col in date_columns:
-            if col in df.columns:
-                df[col] = pd.to_datetime(df[col], errors='coerce')
-        
         details = {
             'name': student['NAME'],
             'seat_no': student['SEAT NO.'],
@@ -116,16 +116,16 @@ def generate_fee_message_text(seat_no):
         return None, error
     
     message = (f"Dear {details['name']} (Seat No. {details['seat_no']}),\n\n"
-               f"Your fee details are as follows:\n"
-               f"Received Amount: {details['received_amount']}\n"
-               f"Due Amount: {details['due_amount']}\n"
-               f"Total Amount: {details['total_amount']}\n"
-               f"Payment Receive Date: {details['payment_receive_date']}\n\n"
-               f"Start Date: {details['start_date']}\n"
-               f"End Date: {details['end_date']}\n\n"
-               f"Thank you.\n"
-               f"Friends Library.\n"
-               f"+91 9636117578")
+                f"Your fee details are as follows:\n"
+                f"Received Amount: {details['received_amount']}\n"
+                f"Due Amount: {details['due_amount']}\n"
+                f"Total Amount: {details['total_amount']}\n"
+                f"Payment Receive Date: {details['payment_receive_date']}\n\n"
+                f"Start Date: {details['start_date']}\n"
+                f"End Date: {details['end_date']}\n\n"
+                f"Thank you.\n"
+                f"Friends Library.\n"
+                f"+91 9636117578")
     
     return message, None
 
@@ -133,7 +133,6 @@ def get_all_data_sorted():
     """Get all data sorted by end date"""
     try:
         df = read_excel()
-        df['END DATE'] = pd.to_datetime(df['END DATE'], errors='coerce')
         sorted_df = df.sort_values(by='END DATE')
         return sorted_df, None
     except Exception as e:
@@ -213,7 +212,7 @@ def generate_reminder_message_text(seat_no):
     # Calculate days remaining
     try:
         if details['end_date'] != 'N/A':
-            end_date = datetime.strptime(details['end_date'], '%d/%m/%Y')
+            end_date = datetime.strptime(details['end_date'], '%d-%m-%Y')
             today = datetime.now()
             days_remaining = (end_date - today).days
             
@@ -227,17 +226,12 @@ def generate_reminder_message_text(seat_no):
                 reminder_text = f"your fee payment is overdue by {abs(days_remaining)} day{'s' if abs(days_remaining) != 1 else ''}"
             
             message = (f"{greeting} {details['name']},\n\n"
-                       f"Greetings from Friends Library!\n\n"
-                       f"{reminder_text}.\n\n"
-                       f"Fee Details:\n"
-                       f"Received Amount: ₹{details['received_amount']}\n"
-                       f"Due Amount: ₹{details['due_amount']}\n"
-                       f"Total Amount: ₹{details['total_amount']}\n"
-                       f"End Date: {details['end_date']}\n\n"
-                       f"Please ensure timely payment.\n\n"
-                       f"Thanks and Regards,\n"
-                       f"Friends Library\n"
-                       f"+91 9636117578")
+                        f"Greetings from Friends Library!\n\n"
+                        f"{reminder_text}.\n\n"
+                        f"Please ensure timely payment.\n\n"
+                        f"Thanks and Regards,\n"
+                        f"Friends Library\n"
+                        f"+91 9636117578")
             
             return message, None
         else:
